@@ -1,0 +1,7 @@
+--tag-relative=yes
+--recurse=yes
+--sort=yes
+--append=no
+--languages=ruby
+--langmap=RUBY:.rb
+

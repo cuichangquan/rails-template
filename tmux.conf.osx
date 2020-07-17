@@ -1,0 +1,10 @@
+# Macの内部でtmuxを開いた時に
+# tmux内部でvim tmuxの間にクリップボードの共有
+set-option -g default-command "reattach-to-user-namespace -l bash"
+
+# Update default binding of `Enter` to also use copy-pipe
+unbind -Tcopy-mode-vi Enter
+
+# Setup 'v' to begin selection as in Vim
+bind -Tcopy-mode-vi v send -X begin-selection
+bind -Tcopy-mode-vi y send -X copy-pipe "reattach-to-user-namespace pbcopy"

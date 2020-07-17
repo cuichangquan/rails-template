@@ -1,0 +1,305 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+hook_add = '''
+  command! GB Gblame
+
+  " http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
+  set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+  autocmd BufReadPost fugitive://* set bufhidden=delete
+
+  "Delete all Git conflict markers
+  "https://vi.stackexchange.com/questions/10534/is-there-a-way-to-take-both-when-using-vim-as-merge-tool
+  function! RemoveConflictMarkers() range
+    silent execute a:firstline.','.a:lastline . ' g/^<\{7}\|^|\{7}\|^=\{7}\|^>\{7}/d'
+  endfunction
+
+  "-range=% default is whole file
+  command! -range=% GremoveConflictMarkers <line1>,<line2>call RemoveConflictMarkers()
+'''
+
+[[plugins]]
+repo = 'haya14busa/dein-command.vim'
+
+[[plugins]]
+repo = 'vim-scripts/yanktmp.vim'
+
+# 検索用の素晴らしいプラグイン :S/検索キーワード :%S/xxx/yyy 置換
+[[plugins]]
+repo = 'tpope/vim-abolish'
+
+[[plugins]]
+repo = 'thinca/vim-visualstar'
+
+[[plugins]]
+repo = 'tmhedberg/matchit'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+depends = [ 'neomru.vim' ]
+hook_add = '''
+  " Define mappings
+  autocmd FileType denite call s:denite_my_settings()
+  function! s:denite_my_settings() abort
+    nnoremap <silent><buffer><expr> <CR>            denite#do_map('do_action')
+    nnoremap <silent><buffer><expr> <TAB>           denite#do_map('choose_action')
+    nnoremap <silent><buffer><expr> d               denite#do_map('do_action', 'delete')
+    nnoremap <silent><buffer><expr> p               denite#do_map('do_action', 'preview')
+    nnoremap <silent><buffer><expr><nowait> q       denite#do_map('quit')
+    nnoremap <silent><buffer><expr><nowait> <ESC>   denite#do_map('quit')
+    nnoremap <silent><buffer><expr> i               denite#do_map('open_filter_buffer')
+    nnoremap <silent><buffer><expr> <Space>         denite#do_map('toggle_select').'j'
+  endfunction
+
+  noremap [Denite] <Nop>
+  nmap <C-u> [Denite]
+  nnoremap <silent> <Space><Space><Space> :<C-u>Denite file_mru       <CR>
+  nnoremap <silent> [Denite]<C-j>         :<C-u>DeniteCursorWord grep <CR>
+  nnoremap <silent> [Denite]<C-u>         :<C-u>Denite file/old       <CR>
+  nnoremap <silent> [Denite]<C-d>         :<C-u>Denite directory_mru  <CR>
+  nnoremap <silent> [Denite]<C-b>         :<C-u>Denite buffer         <CR>
+  nnoremap <silent> [Denite]<C-f>         :<C-u>Denite file/rec       <CR>
+  nnoremap <silent> [Denite]<C-g>         :<C-u>Denite grep           <CR>
+  nnoremap <silent> [Denite]<C-l>         :<C-u>Denite line           <CR>
+  nnoremap <silent> [Denite]<C-y>         :<C-u>Denite neoyank        <CR>
+  nnoremap <silent> [Denite]<C-r>         :<C-u>Denite -resume        <CR>
+
+  nnoremap <silent> <Leader>b :<C-u>Denite buffer<CR>
+
+  " agの使用
+  call denite#custom#var('grep', 'command', ['ag'])
+  call denite#custom#var('grep', 'default_opts', ['--case-sensitive', '--follow', '--nogroup', '--nocolor'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'pattern_opt', [])
+
+  "http://replicity.hateblo.jp/entry/2017/06/03/140731
+  call denite#custom#option('default', 'prompt', '>')      " プロンプトの左端に表示される文字を指定
+  call denite#custom#option('default', 'direction', 'top') " deniteの起動位置をtopに変更
+
+  call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>',     'noremap')
+  call denite#custom#map('insert', '<Up>',   '<denite:move_to_previous_line>', 'noremap')
+  call denite#custom#map('normal', '<Down>', '<denite:move_to_next_line>',     'noremap')
+  call denite#custom#map('normal', '<Up>',   '<denite:move_to_previous_line>', 'noremap')
+
+  call denite#custom#source('file/old', 'matchers', ['matcher_cpsm', 'matcher/project_files'])
+  call denite#custom#source('file/rec', 'matchers', ['matcher_cpsm', 'matcher/project_files'])
+
+  call denite#custom#source('rails_log', 'max_candidates', 3000)
+'''
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+hook_add = '''
+  let g:neomru#file_mru_limit = 100
+'''
+
+[[plugins]]
+repo = 'mattesgroeger/vim-bookmarks'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+depends = ['vim-airline-themes']
+hook_add = '''
+  " https://github.com/vim-airline/vim-airline/wiki/Screenshots
+  let g:airline_theme = 'dark'
+  let g:airline#extensions#tabline#enabled = 1
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+[[plugins]]
+repo = 'airblade/vim-rooter'
+
+# from: https://github.com/Shougo/dein.vim/issues/74
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+merged = 0
+hook_add = '''
+  set rtp+=/usr/local/opt/fzf
+
+  " set prefix
+  "let g:fzf_command_prefix = 'FZF'
+
+  " fzf layout
+  let g:fzf_layout = { 'window': '-tabnew' }
+
+  " Mapping selecting mappings
+  nmap <leader><tab> <plug>(fzf-maps-n)
+
+  " Insert mode completion
+  imap <c-x><c-k> <plug>(fzf-complete-word)
+  imap <c-x><c-f> <plug>(fzf-complete-path)
+  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+  imap <c-x><c-l> <plug>(fzf-complete-line)
+
+  " Advanced customization using autoload functions
+  inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+'''
+
+# BCommits などのコマンドを提供してくれる
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = ['fzf']
+
+[[plugins]]
+repo = 'rbtnn/vimconsole.vim'
+
+[[plugins]]
+repo = 'kmnk/gitn'
+hook_add = '''
+  command! ST Denite gitn_status
+  command! ST0 ST
+  command! ST1 Denite st:1
+  command! ST2 Denite st:2
+  command! ST3 Denite st:3
+  command! ST4 Denite st:4
+  command! ST5 Denite st:5
+  call denite#custom#map('normal', 'a', '<denite:do_action:add>', 'noremap')
+  call denite#custom#map('normal', 'u', '<denite:do_action:unstage>', 'noremap')
+'''
+# hook_post_source = '''
+# '''
+# on_path = '.*'
+
+# deoplete は neovim の補完プラグインなのですが， 設定をせずに
+# neosnippet のスニペット機能を同時に利用しようとしてもうまくいきません．
+### https://leico.github.io/TechnicalNote/VimR/VimR-deoplete
+### https://qiita.com/takezo/items/809d53ecd37c438bac9e
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'mattn/webapi-vim'
+
+# このプラグインはJumpToRoutesTxtでController#action名の取得に使用されている
+[[plugins]]
+repo = 'majutsushi/tagbar'
+hook_add = '''
+  nmap <F8> :TagbarToggle<CR>
+'''
+
+# neovimの矩形ビジュアルモードからyankした時、上手くpasteできないなら？
+# https://qrunch.net/@rugamaga/entries/bbx3xxm7d5RHNcT3
+[[plugins]]
+repo = 'bfredl/nvim-miniyank'
+hook_add = '''
+  map p <Plug>(miniyank-autoput)
+  map P <Plug>(miniyank-autoPut)
+'''
+
+[[plugins]]
+repo = 'tpope/vim-unimpaired'
+
+# 2019/9/7 ここに置かないと「RubyCursorTag」関数がないという不明なエラーが発生している
+# https://qiita.com/gotchane/items/240004235437e559d0bc#fn1
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+# on_ft = ['ruby','eruby']
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+on_path = '.*'
+
+[[plugins]]
+repo = 'rhysd/vim-textobj-ruby'
+# on_ft = ['ruby','eruby']
+
+[[plugins]]
+repo = 'tpope/vim-rbenv'
+# on_ft = ['ruby','eruby']
+
+[[plugins]]
+repo = 'tpope/vim-bundler'
+# on_ft = ['ruby','eruby']
+
+[[plugins]]
+repo='rafi/vim-denite-z'
+hook_add = '''
+  call denite#custom#var('z', 'order', 'frecent')
+  " call denite#custom#source('z', 'sorters', ['sorter_z'])
+  command! -nargs=+ -complete=command Z
+    \ call denite#start([{'name': 'z', 'args': [<q-args>]}])
+'''
+
+[[plugins]]
+repo='PsychoLlama/z.vim'
+hook_add = '''
+  let g:zcd#path = expand('~/sai/z/z.sh')
+'''
+
+[[plugins]]
+repo = 'vifm/vifm.vim'
+hook_add = '''
+" https://github.com/vifm/vifm.vim/blob/master/doc/plugin/vifm-plugin.txt
+" nnoremap <Leader>h :Vifm<CR>
+'''
+
+[[plugins]]
+repo = 'mcchrish/nnn.vim'
+
+[[plugins]]
+repo = 'xolox/vim-session'
+depends = ['xolox/vim-misc']
+hook_add = '''
+  " from: https://qiita.com/take/items/3be8908bbf4ad5b49e46
+  " 現在のディレクトリ直下の .vimsessions/ を取得
+  let s:local_session_directory = xolox#misc#path#merge(getcwd(), '.vimsessions')
+  " 存在すれば
+  if isdirectory(s:local_session_directory)
+
+    " session保存ディレクトリをそのディレクトリの設定
+    let g:session_directory = s:local_session_directory
+
+    " vimを辞める時に自動保存
+    " let g:session_autosave = 'yes'
+
+    " 引数なしでvimを起動した時にsession保存ディレクトリのdefault.vimを開く
+    " let g:session_autoload = 'yes'
+
+    " 1分間に1回自動保存
+    " let g:session_autosave_periodic = 1
+  endif
+  unlet s:local_session_directory
+
+  let g:session_autosave = 'no'
+  let g:session_autoload = 'no'
+  let g:session_command_aliases = 1
+  nnoremap <C-w>u :OpenSession<CR>
+'''
+
+[[plugins]]
+repo = 'xolox/vim-misc'
+
+#------lsp------
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+let g:lsp_virtual_text_enabled = 0
+let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+'''
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+
+[[plugins]]
+repo = 'FuDesign2008/vim-lsp-vue'

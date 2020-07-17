@@ -1,0 +1,36 @@
+ln -fs ~/sai/my-work-helper/bashrc          ~/.bashrc
+ln -fs ~/sai/my-work-helper/gitconfig       ~/.gitconfig
+ln -fs ~/sai/my-work-helper/gitignore       ~/.gitignore
+ln -fs ~/sai/my-work-helper/pryrc           ~/.pryrc
+ln -fs ~/sai/my-work-helper/public_alias    ~/.public_alias
+ln -fs ~/sai/my-work-helper/tmux.conf       ~/.tmux.conf
+ln -fs ~/sai/my-work-helper/neovim/vimrc    ~/.vimrc
+ln -fs ~/sai/work-config/private_alias      ~/.private_alias
+ln -fs ~/sai/my-work-helper/tigrc           ~/.tigrc
+ln -fs ~/sai/my-work-helper/vifmrc          ~/.vifm/vifmrc
+
+ln -fs ~/sai/my-work-helper/tmux.conf.osx           ~/.tmux.conf.osx
+ln -fs ~/sai/my-work-helper/git/git-prompt.sh       ~/.git-prompt.sh
+ln -fs ~/sai/my-work-helper/git/git-completion.bash ~/.git-completion.bash
+
+ln -fs ~/sai/my-work-helper/ctags       ~/.ctags
+ln -fs ~/sai/my-work-helper/inputrc     ~/.inputrc
+
+ln -fs ~/sai/my-work-helper/neovim/init.vim           ~/.config/nvim/init.vim
+ln -fs ~/sai/my-work-helper/neovim/dein.toml          ~/.config/nvim/dein.toml
+ln -fs ~/sai/my-work-helper/neovim/dein_lazy.toml     ~/.config/nvim/dein_lazy.toml
+
+ln -s ~/sai/my-work-helper/neovim/ginit.vim           ~/.config/nvim/
+
+ln -fs ~/sai/my-work-helper/agignore     ~/.agignore
+
+ln -fs ~/sai/my-work-helper/peco/config.json ~/.config/peco/config.json
+
+ln -s ~/sai/my-work-helper/us_keyboard/karabiner/equal_sign_to_plus_sign.json ~/.config/karabiner/assets/complex_modifications/equal_sign_to_plus_sign.json
+ln -s ~/sai/my-work-helper/us_keyboard/karabiner/quote_to_colon.json          ~/.config/karabiner/assets/complex_modifications/quote_to_colon.json
+
+# これはただ作成しておくだけでいい。
+touch  ~/.Xauthority
+
+# 上書きしたいであれば、-f というoptionを追加する
+

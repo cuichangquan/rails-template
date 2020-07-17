@@ -1,0 +1,296 @@
+[[plugins]]
+repo = 'vim-scripts/Align'
+hook_add = '''
+  " https://teratail.com/questions/68916
+  " <Space>w=を無効にすることで<Space>wを動作を早くしたい
+  " <Space>w=の使い方もわからないので、一旦無効にした
+  map <Nop>(<Plug>AM_w=) <Plug>AM_w=
+'''
+
+on_i = 1
+
+[[plugins]]
+repo = 'mbbill/undotree'
+hook_add = '''
+  nnoremap <F5> :UndotreeToggle<cr>
+  if has("persistent_undo")
+      set undodir=~/.undodir
+      set undofile
+  endif
+'''
+on_i = 1
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+hook_add = '''
+  " from: https://wonderwall.hatenablog.com/entry/2016/03/26/211710
+  let g:gitgutter_highlight_lines = 0
+
+  nmap ]h <Plug>GitGutterNextHunk
+  nmap [h <Plug>GitGutterPrevHunk
+'''
+on_i = 1
+
+# 複数ワードハイライト
+[[plugins]]
+repo = 't9md/vim-quickhl'
+hook_add = '''
+  nmap <Space>m <Plug>(quickhl-manual-this)
+  xmap <Space>m <Plug>(quickhl-manual-this)
+  nmap <Space>M <Plug>(quickhl-manual-reset)
+  xmap <Space>M <Plug>(quickhl-manual-reset)
+'''
+on_map = ['<Plug>(quickhl-manual-this)']
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+hook_add = '''
+  imap <C-k>  <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>  <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>  <Plug>(neosnippet_expand_target)
+
+  let g:neosnippet#enable_snipmate_compatibility = 1
+  let g:neosnippet#snippets_directory='~/sai/my-work-helper/neovim/my_snippet'
+'''
+depends = ['neosnippet-snippets']
+on_ft = ['snippet']
+on_event = 'InsertCharPre'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_source = '''
+  let g:deoplete#enable_at_startup = 1
+"  let g:deoplete#auto_complete_delay = 0
+"  let g:deoplete#auto_complete_start_length = 1
+  let g:deoplete#enable_camel_case = 0
+  let g:deoplete#enable_ignore_case = 0
+"  let g:deoplete#enable_refresh_always = 0
+"  let g:deoplete#enable_smart_case = 1
+"  let g:deoplete#file#enable_buffer_path = 1
+"  let g:deoplete#max_list = 10000
+  inoremap <expr><tab> pumvisible() ? "\<C-n>" :
+        \ neosnippet#expandable_or_jumpable() ?
+        \    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+'''
+on_path = '.*'
+
+# これもなくてならないPlugin: コメントアウト機能(gcc)
+[[plugins]]
+repo = 'tyru/caw.vim'
+hook_add = '''
+  nmap <silent>gcc <Plug>(caw:hatpos:toggle)
+  vmap <silent>gcc <Plug>(caw:hatpos:toggle)
+'''
+on_map = ['<Plug>(caw:hatpos:toggle)']
+
+[[plugins]]
+repo = 'kana/vim-altr'
+hook_add = '''
+  nmap <F3> <Plug>(altr-forward)
+  nmap <F2> <Plug>(altr-back)
+
+  " For ruby tdd
+  " call altr#define('%.rb', 'spec/%_spec.rb')
+  " For rails tdd
+  " call altr#define('app/models/%.rb', 'spec/models/%_spec.rb', 'spec/factories/%s.rb')
+  " call altr#define('app/controllers/%.rb', 'spec/controllers/%_spec.rb')
+  " call altr#define('app/helpers/%.rb', 'spec/helpers/%_spec.rb')
+'''
+on_ft = ['ruby','eruby']
+
+[[plugins]]
+repo = 'iyuuya/denite-rails'
+hook_add = '''
+  nnoremap <silent> rrg :<C-u>Denite rails:dwim                <CR>
+  nnoremap <silent> rrr :<C-u>Denite rails:config -immediately <CR>
+  nnoremap <silent> rrm :<C-u>Denite rails:model               <CR>
+  nnoremap <silent> rrc :<C-u>Denite rails:controller          <CR>
+  nnoremap <silent> rrv :<C-u>Denite rails:view                <CR>
+  nnoremap <silent> rrh :<C-u>Denite rails:helper              <CR>
+  nnoremap <silent> rrs :<C-u>Denite rails:spec                <CR>
+  nnoremap <silent> rrd :<C-u>Denite rails:db                  <CR>
+  nnoremap <silent> rrf :<C-u>Denite rails:factory             <CR>
+
+  "Denite rails:ability
+  "Denite rails:asset
+  "Denite rails:attribute
+  "Denite rails:config
+  "Denite rails:controller
+  "Denite rails:db
+  "Denite rails:decorator
+  "Denite rails:domain
+  "Denite rails:factory
+  "Denite rails:form
+  "Denite rails:helper
+  "Denite rails:job
+  "Denite rails:loyalty
+  "Denite rails:mailer
+  "Denite rails:model
+  "Denite rails:policy
+  "Denite rails:presenter
+  "Denite rails:query
+  "Denite rails:serializer
+  "Denite rails:service
+  "Denite rails:spec
+  "Denite rails:test
+  "Denite rails:uploader
+  "Denite rails:validator
+  "Denite rails:view
+'''
+on_path = '.*'
+
+[[plugins]]
+# repo = 'tpope/vim-rails'
+repo = 'cuichangquan/vim-rails'
+hook_add = '''
+  " gfと相性が良い.
+  " http://qiita.com/hmuronaka/items/bc40932a82858fcddeb9
+  nnoremap <silent> gp :bprevious<CR>
+  nnoremap <silent> gn :bnext<CR>
+
+  let g:rails_app_root = substitute(system('git rev-parse --show-toplevel'), '\n', '', 'g')
+  let g:routes_cache_file = g:rails_app_root . '/_routes.txt'
+'''
+on_ft = ['ruby','eruby']
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+hook_add = '''
+  vmap gx <Plug>(openbrowser-smart-search)
+'''
+on_map = ['<Plug>(openbrowser-smart-search)']
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'tpope/vim-repeat'
+on_i = 1
+
+[[plugins]]
+repo = 'elzr/vim-json'
+on_i = 1
+
+[[plugins]]
+repo = "nvie/vim-flake8"
+on_ft = 'python'
+
+[[plugins]]
+repo = "nathanaelkane/vim-indent-guides"
+hook_add = '''
+  let g:indent_guides_enable_on_vim_startup = 1
+
+  " TABキーを押した際にタブ文字の代わりにスペースを入れる
+  set expandtab
+  set tabstop=2
+  set shiftwidth=2
+'''
+on_i = 1
+
+# [[plugins]]
+# repo = "ujihisa/neco-look"
+# on_i = 1
+
+[[plugins]]
+repo = "davidhalter/jedi-vim"
+on_ft = ['python']
+
+[[plugins]]
+repo = 'terryma/vim-expand-region'
+hook_add = '''
+  " なくてはならない設定
+  vmap v <Plug>(expand_region_expand)
+  vmap <C-v> <Plug>(expand_region_shrink)
+'''
+on_map = ['<Plug>(expand_region_expand)']
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+on_path = '.*'
+
+[[plugins]]
+repo = 'mustache/vim-mustache-handlebars'
+hook_add = 'let g:mustache_abbreviations = 1'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/tabpagebuffer.vim'
+on_path = '.*'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+on_i = 1
+
+# Vimスクリプトを書く時に補完をしてくれます。
+[[plugins]]
+repo = 'Shougo/neco-vim'
+
+# 各filetypeのsyntaxファイルの中にある記述を見て 補完候補を追加してくれます。
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+
+[[plugins]]
+repo = 'reireias/vim-cheatsheet'
+hook_add = '''
+  let g:cheatsheet#cheat_file = '~/sai/my-work-helper/cheatsheet.md'
+  command! CheatEdit :edit ~/sai/my-work-helper/cheatsheet.md
+'''
+on_cmd = [ 'Cheat' ]
+
+[[plugins]]
+repo = 'simeji/winresizer'
+hook_add = '''
+  " If you want to start window resize mode by `Ctrl+T`
+  let g:winresizer_start_key = '<C-T>'
+'''
+on_path = '.*'
+
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = 'vue'
+
+[[plugins]]
+repo = 'thinca/vim-prettyprint'
+on_cmd = [ 'PP', 'PP!' ]
+
+[[plugins]]
+repo = 'nanonanomachine/vim-redash'
+depends = [ 'webapi-vim' ]
+on_cmd = ['RedashDescribe', 'RedashExecute', 'RedashPost', 'RedashSetDataSource', 'RedashShowDataSources', 'RedashShowTables']
+
+[[plugins]]
+repo = "tpope/vim-dispatch"
+on_cmd = ['Dispatch','Start','Focus']
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+on_cmd = ['help', 'h']
+
+[[plugins]]
+repo = 'vim-jp/vital.vim'
+hook_add = '''
+  " 必要なときにロードしておこう。
+'''
+
+[[plugins]]
+repo = 'vim-scripts/SQLUtilities'
+on_cmd = ['SQLUFormatter']
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = 'typescript'
+
+# Gbrowse to open Github URL
+[[plugins]]
+repo = 'tpope/vim-rhubarb'
+on_cmd = ['Gbrowse']
+
+# Gbrowse to open Bitbucket URL
+[[plugins]]
+repo = 'tommcdo/vim-fubitive'
+on_cmd = ['Gbrowse']
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+on_i = 1

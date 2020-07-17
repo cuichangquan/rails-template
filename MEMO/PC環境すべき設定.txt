@@ -1,0 +1,2 @@
+感圧タッチトラックパッドで「3 本指のドラッグ」を有効にする
+https://support.apple.com/ja-jp/HT204609

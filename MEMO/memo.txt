@@ -1,0 +1,19 @@
+neovim + dein.vimをいれてから爆速になったという
+
+このサイトを参考にした。
+https://qiita.com/okamos/items/2259d5c770d51b88d75b
+
+# 気軽いにメモをとるツール
+https://github.com/mattn/memo
+
+
+# rails logを見やすくしてくれるツール
+https://github.com/y-takey/rails-dashboard
+
+
+# rails_panel
+https://github.com/dejan/rails_panel
+
+
+# How do I list all versions of a gem available at a remote site?
+$ gem list rhc --remote --all

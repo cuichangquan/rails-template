@@ -1,0 +1,116 @@
+" 参考
+" https://qiita.com/sfus/items/12c1fa825de67246ca23
+" https://github.com/vifm/vifm/blob/master/data/vifmrc
+" https://github.com/vifm/vifm/blob/master/data/vifmrc-osx
+
+set number
+set vicmd='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
+
+set vifminfo=state,tui,bookmarks,bmarks
+
+nnoremap <esc> :quit<cr>
+nnoremap q :quit<cr>
+nnoremap Q :cquit<cr>
+nnoremap K :mkdir<space>
+nnoremap N :touch<space>
+nnoremap X :!open %f<cr>
+nnoremap ss :sort<cr>
+nnoremap S :shell<cr>
+nnoremap w :view<cr>
+vnoremap w :view<cr>gv
+
+nnoremap sp :sp<cr>
+nnoremap vs :vs<cr>
+nnoremap st :tabnew<cr>
+nnoremap on :only<cr>
+
+" original<c-l>: redraw screen
+nnoremap <C-l> :!vim %c<cr>
+" original: repeat :cmd
+nnoremap . za
+nnoremap r cw
+vnoremap r cw
+
+nnoremap <C-k> 10<UP>
+nnoremap <C-j> 10<DOWN>
+
+" Toggle wrap setting on ,w key
+nnoremap <space>w :set lsview!<cr>
+
+"https://codeyarns.com/2014/09/10/how-to-show-hidden-files-in-vifm/
+" Yank current directory path into the clipboard
+nnoremap yd :!printf %d | pbcopy<cr>
+" Yank current file path into the clipboard
+nnoremap yf :!printf %c:p | pbcopy<cr>
+
+fileviewer *.rb,*.erb,*.md,*.yml,*.js,*.css,*.py,*.sh,*.json
+           \ env -uCOLORTERM bat --color=always --wrap=never --pager=never %c -p
+
+" fdを使ってファイルの検索する
+" https://wonderwall.hatenablog.com/entry/2019/03/06/224000
+" command! fd !file=$(fd --type file --color=always --hidden --follow --exclude .git %a  %d | fzf --ansi);
+"             \ if [ -n "$file" ]; then vim $file; fi
+" nnoremap <space>f :fd<space>
+
+" https://wiki.vifm.info/index.php/How_to_integrate_fzf_for_fuzzy_finding
+command! FZF :set noquickview | :execute 'goto' fnameescape(term('fd --type file --color=always --hidden --follow --exclude .git | fzf --ansi 2>/dev/tty'))
+" agを使ってgrepする
+command! Ag !file=$(ag --color %a  %d | fzf --ansi | awk '{print $1}' | awk -F'[:]' '{print $2,$1}');
+             \ if [ -n "$file" ]; then vim +$file; fi
+
+" -x は実行可能かという判断
+command! ag !file=$(ag --color %a  %s | fzf --ansi | awk '{print $1}' | awk -F'[:]' '{print $2,$1}');
+             \ if [ -n "$file" ]; then
+             \   if [ -x /tmp/nvimsocket ]; then
+             \     nvr -s +$file;
+             \   else
+             \     NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim +$file;
+             \   fi
+             \ fi
+
+command! gr !file=$(ag --color %a  %s | fzf --ansi | awk '{print $1}' | awk -F'[:]' '{print $2,$1}');
+             \ if [ -n "$file" ]; then
+             \   if [ -x /tmp/nvimsocket ]; then
+             \     nvr -s +$file;
+             \   else
+             \     NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim +$file;
+             \   fi
+             \ fi
+
+" Example
+" execute 'goto' fnameescape(system('ls -t | head -1'))
+
+" facd needs some option here
+command! z :execute 'cd' system('fasd -d %a')
+command! tig tig -- %d
+command! tigf tig -- %f
+command! vim !vim
+command! nvim !NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim
+command! G tig status
+command! diff vim -d %f %F
+command! reload :write | restart
+command! OpenSession !NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim -c 'OpenSession'
+command! DeniteFileMru !NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim -c 'Denite file_mru'
+
+nnoremap <space>f :FZF<cr>
+nnoremap <c-g> :Ag<space>
+nnoremap ag :ag<space>
+nnoremap gr :gr<space>
+nnoremap <space>g :!lazygit<cr>
+nnoremap <space><space> :
+nnoremap <c-u><c-u> :DeniteFileMru<cr>
+nnoremap <space><space><space> :DeniteFileMru<cr>
+
+set timefmt=" %Y/%m/%d %H:%M:%S"
+set viewcolumns=-45%{name}..,-{ext},10{size},12{perms},21{mtime}
+set sizefmt=units:iec,precision:3
+
+set statusline="  %t%= %A %10u:%-7g %15E %20d  "
+set grepprg='ag --numbers %i %a %s'
+
+filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm open -a Preview.app,
+" https://github.com/vifm/vifm/issues/299
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+    \ tput cup %py %px > /dev/tty && /usr/local/bin/imgcat --width %pw --height %ph %c:p > /dev/tty
+
+source ~/sai/work-config/work-vifmrc

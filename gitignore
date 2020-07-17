@@ -1,0 +1,8 @@
+*.swp
+*.swp
+*.swo
+*~
+dump.rdb
+**/tags
+.DS_Store
+

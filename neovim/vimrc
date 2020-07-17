@@ -1,0 +1,183 @@
+" https://postd.cc/how-to-boost-your-vim-productivity/
+let mapleader = "\<Space>"
+
+" plugin
+"---------------------------------------------------
+filetype off                  " required
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+" https://github.com/junegunn/fzf
+" If installed using Homebrew
+set rtp+=/usr/local/opt/fzf
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+" let Vundle manage Vundle, required
+Plugin 'mcchrish/nnn.vim'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'terryma/vim-expand-region'
+" 検索用の素晴らしいプラグイン :S/検索キーワード :%S/xxx/yyy 置換
+Plugin 'tpope/vim-abolish'
+Plugin 'thinca/vim-visualstar'
+" 複数ワードハイライト
+Plugin 't9md/vim-quickhl'
+Plugin 'reireias/vim-cheatsheet'
+" resize window size
+Plugin 'simeji/winresizer'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+" Vimスクリプトを書く時に補完をしてくれます。
+Plugin 'Shougo/neco-vim'
+Plugin 'tmhedberg/matchit'
+Plugin 'tyru/open-browser.vim'
+Plugin 'tyru/caw.vim'
+Plugin 'PsychoLlama/z.vim'
+Plugin 'kana/vim-textobj-user'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
+Plugin 'vim-scripts/Align'
+Plugin 'thinca/vim-fontzoom'
+Plugin 'vim-scripts/SQLUtilities'
+Plugin 'vifm/vifm.vim'
+Plugin 'thinca/vim-quickrun'
+" --  denite ----
+Plugin 'Shougo/denite.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+Plugin 'Shougo/neomru.vim'
+Plugin 'Shougo/neoyank.vim'
+Plugin 'airblade/vim-rooter'
+" ----------------
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+" Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+" Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+"---------------------------------------------------
+
+" pluginによる設定
+"
+" Plugin 'terryma/vim-expand-region'
+"---------------------------------------------------
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+"---------------------------------------------------
+
+" Plugin 't9md/vim-quickhl'
+"---------------------------------------------------
+nmap <Leader>m <Plug>(quickhl-manual-this)
+xmap <Leader>m <Plug>(quickhl-manual-this)
+nmap <Leader>M <Plug>(quickhl-manual-reset)
+xmap <Leader>M <Plug>(quickhl-manual-reset)
+"---------------------------------------------------
+
+" tyru/open-browser.vim
+"---------------------------------------------------
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+vmap gx <Plug>(openbrowser-smart-search)
+
+" 'tyru/caw.vim'
+nmap <silent>gcc <Plug>(caw:hatpos:toggle)
+vmap <silent>gcc <Plug>(caw:hatpos:toggle)
+
+" PsychoLlama/z.vim
+let g:zcd#path = expand('~/sai/z/z.sh')
+
+" simeji/winresizer
+" If you want to start window resize mode by `Ctrl+T`
+let g:winresizer_start_key = '<C-T>'
+
+" vifm/vifm.vim
+" https://github.com/vifm/vifm.vim/blob/master/doc/plugin/vifm-plugin.txt
+" nnoremap <Leader>h :Vifm<CR>
+
+
+" 'vim-scripts/Align'
+" https://teratail.com/questions/68916
+" <Space>w=を無効にすることで<Space>wを動作を早くしたい
+" <Space>w=の使い方もわからないので、一旦無効にした
+map <Nop>(<Plug>AM_w=) <Plug>AM_w=
+
+" vim-cheatsheet
+"---------------------------------------------------
+let g:cheatsheet#cheat_file = '~/sai/my-work-helper/cheatsheet.md'
+command! CheatEdit :edit ~/sai/my-work-helper/cheatsheet.md
+
+" Define mappings
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>            denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> <TAB>           denite#do_map('choose_action')
+  nnoremap <silent><buffer><expr> d               denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p               denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr><nowait> q       denite#do_map('quit')
+  nnoremap <silent><buffer><expr><nowait> <ESC>   denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i               denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>         denite#do_map('toggle_select').'j'
+endfunction
+
+noremap [Denite] <Nop>
+nmap <C-u> [Denite]
+nnoremap <silent> <Space><Space><Space> :<C-u>Denite file_mru       <CR>
+nnoremap <silent> [Denite]<C-j>         :<C-u>DeniteCursorWord grep <CR>
+nnoremap <silent> [Denite]<C-u>         :<C-u>Denite file/old       <CR>
+nnoremap <silent> [Denite]<C-d>         :<C-u>Denite directory_mru  <CR>
+nnoremap <silent> [Denite]<C-b>         :<C-u>Denite buffer         <CR>
+nnoremap <silent> [Denite]<C-f>         :<C-u>Denite file/rec       <CR>
+nnoremap <silent> [Denite]<C-g>         :<C-u>Denite grep           <CR>
+nnoremap <silent> [Denite]<C-l>         :<C-u>Denite line           <CR>
+nnoremap <silent> [Denite]<C-y>         :<C-u>Denite neoyank        <CR>
+nnoremap <silent> [Denite]<C-r>         :<C-u>Denite -resume        <CR>
+
+nnoremap <silent> <Leader>b :<C-u>Denite buffer<CR>
+
+" agの使用
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'default_opts', ['--case-sensitive', '--follow', '--nogroup', '--nocolor'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+
+"http://replicity.hateblo.jp/entry/2017/06/03/140731
+call denite#custom#option('default', 'prompt', '>')      " プロンプトの左端に表示される文字を指定
+call denite#custom#option('default', 'direction', 'top') " deniteの起動位置をtopに変更
+
+call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>',     'noremap')
+call denite#custom#map('insert', '<Up>',   '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#map('normal', '<Down>', '<denite:move_to_next_line>',     'noremap')
+call denite#custom#map('normal', '<Up>',   '<denite:move_to_previous_line>', 'noremap')
+
+call denite#custom#source('file/old', 'matchers', ['matcher_cpsm', 'matcher/project_files'])
+call denite#custom#source('file/rec', 'matchers', ['matcher_cpsm', 'matcher/project_files'])
+
+call denite#custom#source('rails_log', 'max_candidates', 3000)
+source ~/sai/my-work-helper/neovim/common-config.vim
+

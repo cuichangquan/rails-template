@@ -1,0 +1,38 @@
+[alias] switch = switch
+  restore = restore
+  st = status
+  co = checkout
+  br = branch
+  ci = commit
+  df = diff
+  gr = grep
+  wt = worktree
+  current-branch = rev-parse --abbrev-ref HEAD
+  glog = log --pretty=format:\"%C(red)%h%Creset %C(cyan)<%an>%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative --graph
+  jump = !git checkout $(git branch | sed 's/*//g' | sed 's/ //g' | peco)
+  showpr = "!f() { git log --merges --oneline --reverse --ancestry-path $1...${GIT_MERGE_TARGET_BRANCH-master} | grep 'pull request #' | head -n 1; }; f"
+[color]
+  ui = true
+[core]
+  whitespace = cr-at-eol
+  excludesfile = ~/.gitignore
+  quotepath = false
+  autocrlf = false
+  safecrlf = true
+  eol = lf
+  # editor = nvr --remote-wait-silent
+[grep]
+  lineNumber = true
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path =
+[mergetool "sourcetree"]
+  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[pager]
+  # from: https://qiita.com/ysk_1031/items/a1c112f38fee4c3e8c3e
+  log = diff-highlight | less
+  show = diff-highlight | less
+  diff = diff-highlight | less
+[push]
+  default = current

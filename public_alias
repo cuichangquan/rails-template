@@ -1,0 +1,274 @@
+#!/bin/bash
+# ~/.bash_profile
+# ~/.bashrc
+
+# Setting fd as the default source for fzf
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+# export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
+
+
+# https://ja.stackoverflow.com/questions/21718/touch%E3%81%A7mkdir-p%E3%82%82%E8%A1%8C%E3%81%84%E3%81%9F%E3%81%84
+dirtouch() {
+    mkdir -p "$(dirname $1)"
+    touch "$1"
+}
+alias touch=dirtouch
+
+
+#-------------zコマンド---------------
+# source ~/sai/z/z.sh
+eval "$(fasd --init auto)"
+#-------------------------------------
+
+alias py="python"
+
+# ------------neovim関連--------------
+alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
+export XDG_CONFIG_HOME="$HOME/.config"
+
+# alias ff="vifm -c ':only'"
+alias ff="vifm"
+alias ffrc="vim ~/sai/my-work-helper/vifmrc"
+alias vifmrc="vim ~/sai/my-work-helper/vifmrc"
+alias ffrcc="vim ~/sai/work-config/work-vifmrc"
+
+# set default editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
+#-------------------------------------
+
+# Tmux
+#-------------------------------------
+# alias tmux="tmux new-session -s sai"
+#-------------------------------------
+
+export LANG=ja_JP.UTF-8
+export LC_CTYPE=ja_JP.UTF-8
+export CLICOLOR="true"
+export LSCOLORS="Exfxcxdxbxegedabagacad"
+
+alias ll="ls -lh"
+alias la="ll -a"
+
+alias bashrc="vi ~/.bashrc"
+alias bash_profile="vi ~/.bash_profile"
+alias sss="source ~/.bashrc"
+alias ssss="source ~/.bash_profile"
+alias my="cd ~/sai/my-work-helper/neovim"
+alias vimrc="vim ~/sai/my-work-helper/neovim/vimrc"
+alias init.vim="my;vim ."
+alias cui="cd ~/sai/local-plugins/denite-create-test/rplugin/python3/denite/source/"
+alias cui-p="cd ~/sai/local-plugins/denite-create-test/"
+alias g='lazygit'
+alias ccq='cd ~/sai/ccq-rails-vuejs-app'
+
+alias b="vim ~/.public_alias"
+alias bb="vim ~/.private_alias"
+
+# ZSHの場合のgitコマンド補完設定
+# zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+# fpath=(~/.zsh/completion $fpath)
+#####################################
+
+# alias ta="tmux attach"
+# alias ta-0="tmux a -t 0"
+# alias ta-1="tmux a -t 1"
+# alias j="jobs"
+# alias f="fg %1"
+
+# alias binding.pry
+export ALIAS_FOR_BINDING_PRY=bbb
+
+# about git command
+# alias g="git grep -n --heading --break -H --full-name"
+# alias g="git grep -n --heading --break -H -i -I"
+# alias co="git jump"
+
+# git hookに git checkoutの前のhookがないので
+# pre-checkout(){
+#   if [[ "$PWD" =~ repository_name ]] ; then
+#     do-some1
+#   fi
+# }
+# after-checkout(){
+#   if [[ "$PWD" =~ repository_name ]] ; then
+#     do-some2
+#   fi
+# }
+co(){
+  if type "pre-checkout" >& /dev/null ; then pre-checkout ;fi
+  git jump
+  if type "after-checkout" >& /dev/null ; then after-checkout; fi
+}
+
+alias g-c1="git grep -n --heading --break -H -i -I -C 1"
+alias g-c2="git grep -n --heading --break -H -i -I -C 2"
+alias gg="tig"
+alias st="git st -s"
+alias br="git br"
+alias gitup='git pull origin $(git current-branch)'
+# alias gitpush='git push origin $(git current-branch)'
+alias git-rm-all='git rm $(git ls-files --deleted)'
+# 自分が変更した履歴のみ表示する
+alias my-tig='tig --author="$(git config --global user.name)"'
+alias git-reset-1='git reset @~1'
+alias git-reset-2='git reset @~2'
+alias git-reset-3='git reset @~3'
+
+# rails
+alias pm="p; cd app/models/"
+alias pc="p; cd app/controllers/"
+alias pv="p; cd app/views/"
+alias be="bundle exec"
+alias rails-s="bundle exec rails s -b 0.0.0.0"
+alias rails-s-production="bundle exec rails s -b 0.0.0.0 -e production"
+
+# ctags
+# ctags --langmap=RUBY:.rb --exclude=“＊.js”  --exclude=“.git＊” -R .
+
+# キー      機能
+# Ctrl + ]  カーソル上の要素の定義場所にジャンプ
+# Ctrl + t  戻る
+# :tjump    該当結果が複数あるばあにリスト表示
+# :tag xxxx    xxxxの定義場所にジャンプ
+alias ctags="`brew --prefix`/bin/ctags"
+
+alias dc="docker"
+alias dcc="d;docker-compose"
+alias jira="jira-cli"
+
+PS1='[\W]$'
+# Git コマンドの補完
+if [ -f ~/.git-completion.bash ]; then
+  source ~/.git-prompt.sh
+  source ~/.git-completion.bash
+
+  GIT_PS1_SHOWDIRTYSTATE=true
+  PS1='[\W]$(__git_ps1 "[\[\033[32m\]%s\[\033[0m\]]")\$$(check-vifm) '
+fi
+
+if type __git_ps1 > /dev/null 2>&1 ; then
+  # lsコマンドがすごく重くなるので、一応コメントアウトした。
+  # PROMPT_COMMAND="__git_ps1 '\h:\W \u' '\\\$ '; $PROMPT_COMMAND"
+  GIT_PS1_SHOWDIRTYSTATE=true
+  GIT_PS1_SHOWSTASHSTATE=true
+  GIT_PS1_SHOWUNTRACKEDFILES=true
+  GIT_PS1_SHOWUPSTREAM="auto"
+  GIT_PS1_SHOWCOLORHINTS=true
+fi
+
+
+# 一括置換
+replace-all(){
+  echo $1, $2
+  git grep -l $1 | xargs sed -i -e "s/$1/$2/g"
+}
+
+function vim-g () {
+  vim $(g $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
+}
+
+# 全文で絞り込み検索(特にHTML分析にいいかも)
+# 一つのファイル中に指定した2つ以上のキーワードが含まれているケースに使用
+g-all(){
+  if [ $# -gt 0 ] ; then
+
+    option1="-i -I -l"
+    option2=" -n --heading --break -H -i -I"
+
+    case $# in
+      1 ) cmd="git grep ${option2} -e $1" ;;
+      2 ) cmd="git grep ${option1} -e $1 | xargs git grep ${option2} -e $2" ;;
+      3 ) cmd="git grep ${option1} -e $1 | xargs git grep ${option1} -e $2 | xargs git grep ${option2} -e $3" ;;
+    esac
+
+    echo "${cmd}"
+    eval "${cmd}"
+  fi
+}
+
+# 一行内に検索したい２つ以上のキーワードが含まれているケースに使用
+g-line(){
+  if [ $# -gt 0 ] ; then
+
+    option=" -n --heading --break -H -i -I -w"
+    case $# in
+      1 ) cmd="git grep -e $1"                          ;;
+      2 ) cmd="git grep -e $1 --and -e $2"              ;;
+      3 ) cmd="git grep -e $1 --and -e $2 --and -e $3"  ;;
+    esac
+
+    echo "${cmd} ${option}"
+    eval "${cmd} ${option}"
+  fi
+}
+
+# git push 標準出力をlogとして残す。
+# 目的はPRのURLを取得するため
+function gitpush(){
+  branch="$(git current-branch)"
+  # cmd="git st" #  テスト用
+  cmd="git push origin ${branch} $1"
+  eval "git-root"
+
+  if [ ! -d ./log ]; then
+    eval "${cmd}"
+    return
+  fi
+
+  if [ ! -d ./log/gitpush ]; then
+    mkdir ./log/gitpush
+  fi
+
+  # / を _ に変更する。 /　はフォルダと認識するので、ファイルの作成ができなくなる
+  branch=`echo ${branch} |  sed -e "s/\//\_/g"`
+
+  log_file="log/gitpush/${branch}.log"
+  if [ ! -f ${log_file} ]; then
+    touch ${log_file}
+  fi
+
+  eval "echo `date`>>${log_file} 2>&1"
+  eval "${cmd}>>${log_file} 2>&1"
+  eval "cat ${log_file}"
+}
+
+# Bitbucketのpull-requestへ飛ぶ
+function go-pr(){
+  branch="$(git current-branch)"
+  eval "git-root"
+  branch=`echo ${branch} |  sed -e "s/\//\_/g"`
+  log_file="log/gitpush/${branch}.log"
+  url_pattern="https://bitbucket.org/${BITBUCKET_PROJETC_NAME}/pull-requests/[0-9]\+\?t\=1"
+
+  echo "$log_file"
+  # マッチした最後の文字列を採用する
+  url=`grep -o ${url_pattern} ${log_file} | tail -n 1`
+  echo "$url"
+
+  if [ -n "$url" ]; then
+    `open ${url}`
+  else
+    echo "PRのURLが見つかりませんでした。"
+  fi
+}
+
+# プロジェクトルートに入る
+function git-root() {
+  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    cd `pwd`/`git rev-parse --show-cdup`
+  fi
+}
+
+# BASHのPROPTにvifmが開いているかどうかを知りたいときに
+check-vifm(){
+  vifms=$(ps | grep vifm | sed '/grep vifm/d')
+  if [ -n "$vifms" ]; then
+    count=$(echo $vifms | grep -o vifm | wc -l)
+    # vifmというプロセスが一つだけはずっと常駐しているようだ。
+    if [ $count -ge 1 ]; then
+      echo "<vifm=$count>" | sed 's/ //g'
+    fi
+  fi
+}
+
