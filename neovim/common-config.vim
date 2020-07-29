@@ -65,6 +65,8 @@ if has('nvim')
   nnoremap <Leader>s :vs<CR><C-w>l:vert term<CR>
   tnoremap <Esc><Esc><Esc> <C-\><C-n>:q!<CR>
   command! Lazygit tabnew term://lazygit
+
+  autocmd TermClose term://.//*:lazygit* bprevious | bwipeout!
 else
   set clipboard=unnamed
   tnoremap <Esc><Esc><Esc> <C-W><C-C>
@@ -92,15 +94,15 @@ tnoremap <Esc><Esc> <C-\><C-n>
 " " <A-l>
 " tnoremap ¬ <C-\><C-N><C-w>l
 
-nnoremap <C-k> 20<UP>
-nnoremap <C-j> 20<DOWN>
-nnoremap <C-h> 20<LEFT>
-nnoremap <C-l> 20<RIGHT>
+nnoremap <C-k> 15<UP>
+nnoremap <C-j> 15<DOWN>
+nnoremap <C-h> 15<LEFT>
+nnoremap <C-l> 15<RIGHT>
 
-vnoremap <C-k> 20<UP>
-vnoremap <C-j> 20<DOWN>
-vnoremap <C-h> 20<LEFT>
-vnoremap <C-l> 20<RIGHT>
+vnoremap <C-k> 15<UP>
+vnoremap <C-j> 15<DOWN>
+vnoremap <C-h> 15<LEFT>
+vnoremap <C-l> 15<RIGHT>
 " From: https://qiita.com/tekkoc/items/98adcadfa4bdc8b5a6ca
 nnoremap s <Nop>
 nnoremap sj <C-w>j
@@ -270,3 +272,4 @@ function! Toggle_current_directory() abort
 endfun
 
 command! ToggleCurrentDirectory call Toggle_current_directory()
+
