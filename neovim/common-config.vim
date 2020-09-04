@@ -146,6 +146,8 @@ inoremap <C-e> <C-o>$
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
+inoremap <C-s> <ESC>:w<CR>g;i
+
 " コマンド履歴Windowはうるさいから、:qに置き換える
 " map q: :q
 " こうすることでマイクロを終了したい時にqの待ち時間が嫌だ
@@ -249,8 +251,8 @@ map <silent> [Tag]p :tabprevious<CR>
 " tp 前のタブ
 
 function! Open_existed_vifm_buffer() abort
-  if bufname('vifm:') != ""
-    execute("buffer vifm")
+  if bufname('^vifm:') != ""
+    execute("buffer vifm:")
     execute("normal i")
   else
     execute(":Vifm")
