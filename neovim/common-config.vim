@@ -48,6 +48,8 @@ nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>f *N
 nnoremap <Leader>j '"
+nnoremap <Leader>; :
+
 nnoremap <Leader><C-j> ']
 
 nnoremap <Leader><Leader>q :qa!<CR>
