@@ -36,3 +36,10 @@
   diff = diff-highlight | less
 [push]
   default = current
+[user]
+  name = $GIT_COMMITTER_NAME
+  email = $GIT_COMMITTER_EMAIL
+[commit]
+  template = ~/.stCommitMsg
+[pull]
+  ff = only
