@@ -96,13 +96,13 @@ tnoremap <Esc><Esc> <C-\><C-n>
 " " <A-l>
 " tnoremap ¬ <C-\><C-N><C-w>l
 
-nnoremap <C-k> 15<UP>
-nnoremap <C-j> 15<DOWN>
+nnoremap <C-k> 10<UP>
+nnoremap <C-j> 10<DOWN>
 nnoremap <C-h> 15<LEFT>
 nnoremap <C-l> 15<RIGHT>
 
-vnoremap <C-k> 15<UP>
-vnoremap <C-j> 15<DOWN>
+vnoremap <C-k> 10<UP>
+vnoremap <C-j> 10<DOWN>
 vnoremap <C-h> 15<LEFT>
 vnoremap <C-l> 15<RIGHT>
 " From: https://qiita.com/tekkoc/items/98adcadfa4bdc8b5a6ca
