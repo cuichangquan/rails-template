@@ -50,10 +50,13 @@ nnoremap <Leader><Leader>q :qa!<CR>
 nnoremap <Leader><Leader>b :set filetype=bash<CR>
 
 " 素早く動きたいので
-nnoremap <Leader>f F
-nnoremap <Leader>a ^
+nnoremap tt F
+nnoremap aa ^
+nnoremap al $
+" jump to the middle of current line
+nnoremap am :call cursor(0, virtcol('$')/2)<CR>
 nnoremap <Leader>l $
-nnoremap <Leader>t %
+nnoremap <Leader>b %
 nnoremap <Leader><Leader>f *N
 nnoremap <Leader>j '"
 nnoremap <Leader>[ '[
