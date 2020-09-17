@@ -46,15 +46,31 @@ set whichwrap=b,s,h,l,<,>,[,]
 map CTRL-V <BS>   CTRL-V <Del>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
-nnoremap <Leader>f *N
-nnoremap <Leader>j '"
-nnoremap <Leader>; :
-
-nnoremap <Leader><C-j> ']
-
 nnoremap <Leader><Leader>q :qa!<CR>
-
 nnoremap <Leader><Leader>b :set filetype=bash<CR>
+
+" 素早く動きたいので
+nnoremap <Leader>f F
+nnoremap <Leader>a ^
+nnoremap <Leader>l $
+nnoremap <Leader>t %
+nnoremap <Leader><Leader>f *N
+nnoremap <Leader>j '"
+nnoremap <Leader>[ '[
+nnoremap <Leader>] ']
+
+nnoremap <Leader>g :Lazygit<CR>
+nnoremap <Leader>h :call Open_existed_vifm_buffer()<CR>
+nnoremap <Leader>d :call Toggle_current_directory()<CR>
+
+" Plugin 't9md/vim-quickhl'
+"---------------------------------------------------
+" nmap <Leader>m <Plug>(quickhl-manual-this)
+" xmap <Leader>m <Plug>(quickhl-manual-this)
+" nmap <Leader>M <Plug>(quickhl-manual-reset)
+" xmap <Leader>M <Plug>(quickhl-manual-reset)
+"---------------------------------------------------
+
 " 縦分割版gf
 " https://yuheikagaya.hatenablog.jp/entry/2012/12/03/202556
 nnoremap gs :vertical wincmd f<CR>
@@ -64,7 +80,7 @@ if has('nvim')
   " Make Terminal default mode insert
   " https://github.com/neovim/neovim/issues/8816
   autocmd TermOpen term://* startinsert
-  nnoremap <Leader>s :vs<CR><C-w>l:vert term<CR>
+  nnoremap <Leader><Leader>s :vs<CR><C-w>l:vert term<CR>
   tnoremap <Esc><Esc><Esc> <C-\><C-n>:q!<CR>
   command! Lazygit tabnew term://lazygit
 
@@ -72,18 +88,12 @@ if has('nvim')
 else
   set clipboard=unnamed
   tnoremap <Esc><Esc><Esc> <C-W><C-C>
-  nnoremap <Leader>s :vert term<CR>
+  nnoremap <Leader><Leader>s :vert term<CR>
   command! Lazygit :tab term ++close lazygit
 endif
 
 " http://cohama.hateblo.jp/entry/20130108/1357664352
 vnoremap P "0p
-
-nnoremap <Leader>g :Lazygit<CR>
-
-nnoremap <Leader>h :call Open_existed_vifm_buffer()<CR>
-nnoremap <Leader>d :call Toggle_current_directory()<CR>
-nnoremap <Leader><Leader>v :set filetype=vue<CR>
 
 " https://neovim.io/doc/user/nvim_terminal_emulator.html#terminal-emulator
 tnoremap <Esc><Esc> <C-\><C-n>
@@ -105,6 +115,8 @@ vnoremap <C-k> 10<UP>
 vnoremap <C-j> 10<DOWN>
 vnoremap <C-h> 15<LEFT>
 vnoremap <C-l> 15<RIGHT>
+
+
 " From: https://qiita.com/tekkoc/items/98adcadfa4bdc8b5a6ca
 nnoremap s <Nop>
 nnoremap sj <C-w>j
@@ -137,6 +149,7 @@ nnoremap sv :<C-u>vsplit<CR>
 nnoremap st :<C-u>tabnew<CR>
 
 nnoremap <C-s> :call Open_existed_vifm_buffer()<CR>
+nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <C-p> :<C-u>FZF<CR>
 
 " https://qiita.com/ymiyamae/items/cea5103c65184f55d62e
