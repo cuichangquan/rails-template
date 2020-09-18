@@ -63,7 +63,7 @@ nnoremap <Leader>[ '[
 nnoremap <Leader>] ']
 
 " これも生産性を生む
-" gn gN select text highlighted by search?
+" gn gN: select text highlighted by search
 
 nnoremap <Leader>g :Lazygit<CR>
 nnoremap <Leader>h :call Open_existed_vifm_buffer()<CR>
