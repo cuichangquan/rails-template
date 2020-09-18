@@ -53,10 +53,11 @@ nnoremap <Leader><Leader>b :set filetype=bash<CR>
 nnoremap tt F
 nnoremap aa ^
 nnoremap al $
+nnoremap mm %
 " jump to the middle of current line
 nnoremap am :call cursor(0, virtcol('$')/2)<CR>
-nnoremap <Leader>l $
-nnoremap <Leader>b %
+" used in buffers <Leader>b
+" nnoremap <Leader>b %
 nnoremap <Leader>f *N
 nnoremap <Leader>j '"
 nnoremap <Leader>[ '[
