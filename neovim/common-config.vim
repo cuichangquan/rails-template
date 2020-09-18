@@ -166,7 +166,10 @@ inoremap <C-e> <C-o>$
 "挿入モードのときに hjkl でカーソルを移動する
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
-
+inoremap jj <ESC>
+inoremap kk <ESC>
+inoremap hh <ESC>
+inoremap ll <ESC>
 inoremap <C-s> <ESC>:w<CR>g;i
 
 " コマンド履歴Windowはうるさいから、:qに置き換える
