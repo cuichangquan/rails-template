@@ -54,6 +54,9 @@ nnoremap tt F
 nnoremap aa ^
 nnoremap al $
 nnoremap mm %
+" ruby-vim's %
+nnoremap mm :<C-U>call <SNR>50_Match_wrapper('',1,'n') <CR>
+vnoremap mm :<C-U>call <SNR>50_Match_wrapper('',1,'v') <CR>m'gv``
 " jump to the middle of current line
 nnoremap am :call cursor(0, virtcol('$')/2)<CR>
 " used in buffers <Leader>b
@@ -300,4 +303,3 @@ function! Toggle_current_directory() abort
 endfun
 
 command! ToggleCurrentDirectory call Toggle_current_directory()
-
