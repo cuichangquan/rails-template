@@ -57,7 +57,7 @@ nnoremap al $
 nnoremap am :call cursor(0, virtcol('$')/2)<CR>
 nnoremap <Leader>l $
 nnoremap <Leader>b %
-nnoremap <Leader><Leader>f *N
+nnoremap <Leader>f *N
 nnoremap <Leader>j '"
 nnoremap <Leader>[ '[
 nnoremap <Leader>] ']
