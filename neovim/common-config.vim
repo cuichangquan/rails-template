@@ -61,6 +61,7 @@ nnoremap <Leader><Leader>f *N
 nnoremap <Leader>j '"
 nnoremap <Leader>[ '[
 nnoremap <Leader>] ']
+nnoremap <Leader>; g,
 
 " これも生産性を生む
 " gn gN: select text highlighted by search
