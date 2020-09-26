@@ -192,7 +192,8 @@ inoremap <C-l> <Right>
 inoremap jj <ESC>
 inoremap kk <ESC>
 inoremap hh <ESC>
-inoremap ll <ESC>
+" all, hall 結構ある
+" inoremap ll <ESC>
 inoremap <C-s> <ESC>:w<CR>
 
 " コマンド履歴Windowはうるさいから、:qに置き換える

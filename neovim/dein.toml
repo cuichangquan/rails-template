@@ -303,3 +303,10 @@ repo = 'mattn/vim-lsp-settings'
 
 [[plugins]]
 repo = 'FuDesign2008/vim-lsp-vue'
+
+[[plugins]]
+repo = 'justinmk/vim-sneak'
+hook_add = '''
+  map f <Plug>Sneak_s
+  map F <Plug>Sneak_S
+'''
