@@ -61,9 +61,20 @@ nnoremap al $
 nnoremap am :call cursor(0, virtcol('$')/2)<CR>
 nnoremap mm %
 
+vnoremap aa ^
+vnoremap al $
+" jump to the middle of current line
+vnoremap am :call cursor(0, virtcol('$')/2)<CR>
+vnoremap mm %
+
+" 貼り付けたばかりのテキストを再選択
+" https://qastack.jp/vi/31/how-do-i-visually-select-the-block-of-text-i-just-pasted-in-vim
+nnoremap gV `[v`]
+
 " matchit.vim
-nnoremap mm :<C-U>call <SNR>50_Match_wrapper('',1,'n') <CR>
-vnoremap mm :<C-U>call <SNR>50_Match_wrapper('',1,'v') <CR>m'gv``
+" TODO
+" nnoremap mm :<C-U>call <SNR>50_Match_wrapper('',1,'n') <CR>
+" vnoremap mm :<C-U>call <SNR>50_Match_wrapper('',1,'v') <CR>m'gv``
 
 " used in buffers <Leader>b
 " nnoremap <Leader>b %
