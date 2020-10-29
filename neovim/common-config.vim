@@ -110,6 +110,8 @@ nmap <Leader><Leader>mm <Plug>BookmarkToggle
 nmap <Leader><Leader>ma <Plug>BookmarkShowAll
 nmap <Leader><Leader>mc <Plug>BookmarkClear
 nmap <Leader><Leader>mx <Plug>BookmarkClearAll
+nmap <Leader><Leader>mn <Plug>BookmarkNext
+nmap <Leader><Leader>mp <Plug>BookmarkPrev
 
 " 縦分割版gf
 " https://yuheikagaya.hatenablog.jp/entry/2012/12/03/202556
