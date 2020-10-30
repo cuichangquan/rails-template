@@ -312,7 +312,7 @@ map <silent> [Tag]p :tabprevious<CR>
 " tp 前のタブ
 
 function! Open_existed_vifm_buffer() abort
-  if bufname('^vifm:') != ""
+  if bufname('vifm') != ""
     execute("buffer vifm:")
     execute("normal i")
   else
