@@ -35,11 +35,12 @@ set mouse=a
 set notagbsearch
 set ignorecase
 set ruler
+set virtualedit=block
 
 " insert mode で deleteを有効にする
 " https://sseze.hatenablog.com/entry/20120414/1334398422
 "カーソルを行頭，行末で止まらないようにする
-set whichwrap=b,s,h,l,<,>,[,]
+" set whichwrap=b,s,h,l,<,>,[,]
 
 " -- map系 --
 " <Del> key: ノーマルモードで数値 (count) を入力しているときは、数字の最後の桁を削除します。
