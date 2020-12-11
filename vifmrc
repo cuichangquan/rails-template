@@ -37,6 +37,8 @@ nnoremap <C-j> 10<DOWN>
 " Toggle wrap setting on ,w key
 nnoremap <space>w :set lsview!<cr>
 
+nnoremap <space><space>s :sh<cr>
+
 "https://codeyarns.com/2014/09/10/how-to-show-hidden-files-in-vifm/
 " Yank current directory path into the clipboard
 nnoremap yd :!printf %d | pbcopy<cr>
