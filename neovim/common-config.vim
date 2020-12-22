@@ -89,7 +89,7 @@ nnoremap ,,  A,<ESC>
 " これも生産性を生む
 " gn gN: select text highlighted by search
 
-nnoremap <Leader>g :Lazygit<CR>
+nnoremap <Leader>g :tabnew<CR>:Lazygit<CR>
 nnoremap <Leader>h :call Open_existed_vifm_buffer()<CR>
 nnoremap <Leader>d :call Toggle_current_directory()<CR>
 
@@ -313,12 +313,12 @@ map <silent> [Tag]p :tabprevious<CR>
 " tp 前のタブ
 
 function! Open_existed_vifm_buffer() abort
-  if bufname('vifm') != ""
-    execute("buffer vifm:")
-    execute("normal i")
-  else
+  " if bufname('vifm') != ""
+  "   execute("buffer vifm:")
+  "   execute("normal i")
+  " else
     execute(":Vifm")
-  endif
+  " endif
 endfun
 
 function! Toggle_current_directory() abort
