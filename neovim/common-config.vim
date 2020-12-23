@@ -317,7 +317,7 @@ function! Open_existed_vifm_buffer() abort
   "   execute("buffer vifm:")
   "   execute("normal i")
   " else
-    execute(":Vifm")
+    execute("Vifm")
   " endif
 endfun
 
