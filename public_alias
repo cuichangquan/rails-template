@@ -14,6 +14,9 @@ dirtouch() {
 }
 alias touch=dirtouch
 
+### iTerm2で折り返し（Word Wrap）のオン・オフを切替える
+alias word-wrap-eable='tput smam'   # 有効にする
+alias word-wrap-disable='tput rmam' # 無効にする
 
 #-------------zコマンド---------------
 # source ~/sai/z/z.sh
