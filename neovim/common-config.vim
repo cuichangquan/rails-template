@@ -48,8 +48,6 @@ set nowrap              " 画面の端で行を折り返すのをやめる方法
 map CTRL-V <BS>   CTRL-V <Del>
 
 " <Leader>のmapについて、
-" よく使うのは機能:              <Leader> X 1
-" それほど使っていないのは機能:  <Leader> X 2
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader><Leader>q :qa!<CR>
@@ -61,28 +59,18 @@ nnoremap aa ^
 nnoremap al $
 " jump to the middle of current line
 nnoremap am :call cursor(0, virtcol('$')/2)<CR>
-nnoremap mm %
 
 vnoremap aa ^
 vnoremap al $
-vnoremap mm %
 
 " 貼り付けたばかりのテキストを再選択
 " https://qastack.jp/vi/31/how-do-i-visually-select-the-block-of-text-i-just-pasted-in-vim
 nnoremap gV `[v`]
 
-" matchit.vim
-" TODO
-" nnoremap mm :<C-U>call <SNR>50_Match_wrapper('',1,'n') <CR>
-" vnoremap mm :<C-U>call <SNR>50_Match_wrapper('',1,'v') <CR>m'gv``
-
-" used in buffers <Leader>b
-" nnoremap <Leader>b %
 nnoremap <Leader>f *N
 nnoremap <Leader>j '"
 nnoremap <Leader>[ '[
 nnoremap <Leader>] ']
-nnoremap <Leader>; g,
 nnoremap ,,  A,<ESC>
 
 " これも生産性を生む
@@ -105,13 +93,6 @@ nnoremap <Leader>d :call Toggle_current_directory()<CR>
 " Show all bookmarks (toggle)	                ma :BookmarkShowAll
 " Clear bookmarks in current buffer only	    mc :BookmarkClear
 " Clear bookmarks in all buffers	            mx :BookmarkClearAll
-" 頻繁に使っている機能ではないので、<Leader> X 2
-nmap <Leader><Leader>mm <Plug>BookmarkToggle
-nmap <Leader><Leader>ma <Plug>BookmarkShowAll
-nmap <Leader><Leader>mc <Plug>BookmarkClear
-nmap <Leader><Leader>mx <Plug>BookmarkClearAll
-nmap <Leader><Leader>mn <Plug>BookmarkNext
-nmap <Leader><Leader>mp <Plug>BookmarkPrev
 
 " 縦分割版gf
 " https://yuheikagaya.hatenablog.jp/entry/2012/12/03/202556
