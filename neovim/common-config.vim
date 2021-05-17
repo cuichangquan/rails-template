@@ -36,6 +36,7 @@ set notagbsearch
 set ignorecase
 set ruler
 set virtualedit=block
+set nowrap              " 画面の端で行を折り返すのをやめる方法
 
 " insert mode で deleteを有効にする
 " https://sseze.hatenablog.com/entry/20120414/1334398422
