@@ -65,8 +65,6 @@ nnoremap mm %
 
 vnoremap aa ^
 vnoremap al $
-" jump to the middle of current line
-vnoremap am :call cursor(0, virtcol('$')/2)<CR>
 vnoremap mm %
 
 " 貼り付けたばかりのテキストを再選択
